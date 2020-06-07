@@ -1,6 +1,8 @@
 #!/bin/bash
 # FIXME: need to findout correct (default) soundcard eg. aplay -L/-l and put it as ALSA_CARD value
-docker build . -t vlcrecord && \
+if [[ "$(docker images -q vlcrecord 2> /dev/null)" == "" ]]; then
+  docker build . -t vlcrecord
+fi
 docker run -ti --rm \
     -u $(id -u $USER):$(id -g $USER) \
     -w "/home/$USER" \
